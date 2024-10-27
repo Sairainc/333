@@ -1,8 +1,14 @@
-   app/.next
-   */app/.next
-   node_modules/
-   .DS_Store
-   *.log
-   .DS_Store
-   **/.DS_Store
-   .next/
+# Next.js build output
+.next/
+*/app/.next/
+app/.next/
+
+# Dependencies
+node_modules/
+
+# Logs
+*.log
+
+# macOS system files
+.DS_Store
+**/.DS_Store
