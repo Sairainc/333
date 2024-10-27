@@ -1,3 +1,8 @@
-node_modules
-.env
-.next/
+   app/.next
+   */app/.next
+   node_modules/
+   .DS_Store
+   *.log
+   .DS_Store
+   **/.DS_Store
+   .next/
