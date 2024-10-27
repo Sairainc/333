@@ -1,0 +1,22 @@
+{
+  "node": {
+    "d8eed46481a2ae61ae651af082e63a66277b7c2e": {
+      "workers": {
+        "app/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fryo-ga%2FDesktop%2Fsairaweb%2Fapp%2Factions.ts%22%2C%5B%22submitContact%22%2C%22getContacts%22%5D%5D%5D&encryptionKey=XiTCDNz3OOOoGlti5bqvFM3VtKY%2Bsh%2Feilyiw1PtUNE%3D&__client_imported__=true!"
+      },
+      "layer": {
+        "app/page": "action-browser"
+      }
+    },
+    "f67aec5a1d57e42aa30a3870f6948f6c968778ad": {
+      "workers": {
+        "app/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fryo-ga%2FDesktop%2Fsairaweb%2Fapp%2Factions.ts%22%2C%5B%22submitContact%22%2C%22getContacts%22%5D%5D%5D&encryptionKey=XiTCDNz3OOOoGlti5bqvFM3VtKY%2Bsh%2Feilyiw1PtUNE%3D&__client_imported__=true!"
+      },
+      "layer": {
+        "app/page": "action-browser"
+      }
+    }
+  },
+  "edge": {},
+  "encryptionKey": "XiTCDNz3OOOoGlti5bqvFM3VtKY+sh/eilyiw1PtUNE="
+}

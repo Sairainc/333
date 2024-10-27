@@ -1,0 +1,18 @@
+app/
+  layout.tsx
+  page.tsx
+  components/
+    Navigation.tsx
+    HeroSection.tsx
+    ServicesSection.tsx
+    CompanyInfo.tsx
+    TeamSection.tsx
+    Testimonials.tsx
+    ContactForm.tsx
+    BlogSection.tsx
+    FAQSection.tsx
+    Footer.tsx
+  lib/
+    types.ts
+public/
+  placeholder.svg
