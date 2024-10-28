@@ -12,16 +12,16 @@ const Footer = () => {
           </div>
           <div className="space-y-4">
             <h3 className="text-xl font-semibold text-gray-800">お問い合わせ</h3>
-            <p className="flex items-center"><Phone className="mr-3 h-5 w-5 text-gray-600" /> 03-1234-5678</p>
+            <p className="flex items-center"><Phone className="mr-3 h-5 w-5 text-gray-600" /> 070-9168-1540</p>
             <p className="flex items-center"><Mail className="mr-3 h-5 w-5 text-gray-600" /> info@saira.co.jp</p>
-            <p className="flex items-center"><MapPin className="mr-3 h-5 w-5 text-gray-600" /> 東京都渋谷区...</p>
+            <p className="flex items-center"><MapPin className="mr-3 h-5 w-5 text-gray-600" /> 神奈川県相模原市...</p>
           </div>
           <div className="space-y-4">
             <h3 className="text-xl font-semibold text-gray-800">リンク</h3>
             <ul className="space-y-2">
-              <li><a href="#" className="text-gray-600 hover:text-blue-500 transition-colors">プライバシーポリシー</a></li>
-              <li><a href="#" className="text-gray-600 hover:text-blue-500 transition-colors">利用規約</a></li>
-              <li><a href="#" className="text-gray-600 hover:text-blue-500 transition-colors">サイトマップ</a></li>
+              <li><a href="/privacy-policy" className="text-gray-600 hover:text-blue-500 transition-colors">プライバシーポリシー</a></li>
+              <li><a href="/terms-of-service" className="text-gray-600 hover:text-blue-500 transition-colors">利用規約</a></li>
+              <li><a href="/sitemap" className="text-gray-600 hover:text-blue-500 transition-colors">サイトマップ</a></li>
             </ul>
           </div>
           <div className="space-y-4">

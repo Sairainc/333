@@ -30,16 +30,16 @@ const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => (
 const Testimonials = () => {
   const testimonials: Testimonial[] = [
     {
-      content: "「株式会社Sairaのノーコードウェブアプリ開発サービスを利用して、わずか2ヶ月で社内の業務効率化アプリを構築できました。従来の開発方法と比べて、時間とコストを大幅に削減できました。」",
-      author: "- A社 IT部門長"
+      content: "「ノーコードWebアプリケーション開発を通じて、市場に導入するまでのスポードが格段に早くなりました。従来の開発方法と比べて、時間とコストを大幅に削減できました。」",
+      author: "- A社 新規事業部"
     },
     {
-      content: "「株式会社Sairaの人材コンサルティングサービスのおかげで、最適な組織構造を実現し、社員のモチベーションが大幅に向上しました。結果として、生産性が30%以上アップしています。」",
+      content: "「新卒採用の支援を受け、Z世代の人材の確保や社内教育で社内のモチベーションが大幅に上がりました。」",
       author: "- B社 人事部長"
     },
     {
-      content: "「株式会社SairaのSNS運用コンサルティングサービスを利用して、わずか3ヶ月でフォロワー数が2倍に増加し、エンゲージメント率も50%向上しました。戦略的なアプローチと的確なアドバイスに感謝しています。」",
-      author: "- C社 マーケティング部長"
+      content: "「SNS運用コンサルによってゼロから始めたアカウントが1000人フォロワー突破、早期にマネタイズを達成しました。実際に足を運んでいただけるお客様も増えました」",
+      author: "- A店 マーケティング部長"
     }
   ]
 
@@ -56,7 +56,7 @@ const Testimonials = () => {
   return (
     <section id="お客様の声" className="py-20 bg-gradient-to-br from-blue-50 to-purple-50">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold mb-12 text-left text-gray-900 pl-32">
+        <h2 className="text-3xl font-bold mb-12 text-center text-gray-900">
           お客様の声と実績
         </h2>
         <div className="grid md:grid-cols-3 gap-8 mb-12">

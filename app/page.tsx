@@ -5,8 +5,8 @@ import ServicesSection from './components/ServicesSection'
 import CompanyInfo from './components/CompanyInfo'
 import TeamSection from './components/TeamSection'
 import Testimonials from './components/Testimonials'
-import ContactForm from './components/ContactForm'
 import BlogSection from './components/BlogSection'
+import ContactForm from './components/ContactForm'
 import FAQSection from './components/FAQSection'
 import Footer from './components/Footer'
 
@@ -19,8 +19,8 @@ export default function Home() {
       <CompanyInfo />
       <TeamSection />
       <Testimonials />
-      <ContactForm />
       <BlogSection />
+      <ContactForm />
       <FAQSection />
       <Footer />
     </div>

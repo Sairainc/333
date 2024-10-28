@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import {
   Card,
   CardContent,
@@ -18,7 +19,12 @@ const BlogPostCard = ({ post }: { post: BlogPost }) => (
     </CardHeader>
     <CardContent className="mt-4">
       <p className="text-gray-600">{post.content}</p>
-      <a href="#" className="text-blue-600 hover:text-blue-800 mt-4 inline-block transition-colors">続きを読む</a>
+      <Link 
+        href="/blogpage" 
+        className="text-blue-600 hover:text-blue-800 mt-4 inline-block transition-colors"
+      >
+        続きを読む
+      </Link>
     </CardContent>
   </Card>
 )

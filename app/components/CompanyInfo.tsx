@@ -9,8 +9,8 @@ import {
 } from "../components/ui/card"
 
 const InfoCard = ({ title, content, isVisible }: { title: string, content: React.ReactNode, isVisible: boolean }) => (
-  <div className={`transition-all duration-1000 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-    <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
+  <div className={`h-full transition-all duration-1000 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+    <Card className="h-full shadow-lg hover:shadow-xl transition-shadow duration-300">
       <CardHeader className={`bg-gradient-to-r ${title === '会社概要' ? 'from-blue-100 to-green-100' : 'from-green-100 to-yellow-100'}`}>
         <CardTitle className="text-2xl font-bold text-gray-900">{title}</CardTitle>
       </CardHeader>
@@ -77,15 +77,21 @@ const CompanyInfo = () => {
 
   const missionVision = (
     <>
-      <p className="mb-4 text-gray-600"><span className="font-semibold text-gray-900">ミッション：</span>ノーコード技術と人材戦略を融合し、企業のデジタル変革と持続的成長を支援します。</p>
-      <p className="mb-4 text-gray-600"><span className="font-semibold text-gray-900">ビジョン：</span>テクノロジーの民主化を通じて、誰もが自由にアイデアを形にできる世界を創造します。</p>
+      <p className="mb-8 text-gray-600 text-lg leading-relaxed">
+        <span className="font-semibold text-gray-900 text-xl block mb-2">ミッション：</span>
+        ノーコード技術と人材戦略を融合し、企業のデジタル変革と持続的成長を支援します。
+      </p>
+      <p className="text-gray-600 text-lg leading-relaxed">
+        <span className="font-semibold text-gray-900 text-xl block mb-2">ビジョン：</span>
+        テクノロジーの民主化を通じて、誰もが自由にアイデアを形にできる世界を創造します。
+      </p>
     </>
   )
 
   return (
     <section id="会社情報" className="py-20 bg-gradient-to-br from-gray-50 to-white">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold mb-12 text-left text-gray-900 pl-32">
+        <h2 className="text-3xl font-bold mb-12 text-center text-gray-900">
           会社情報
         </h2>
         <div className="grid md:grid-cols-2 gap-8">
