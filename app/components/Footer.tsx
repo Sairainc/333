@@ -13,7 +13,7 @@ const Footer = () => {
           <div className="space-y-4">
             <h3 className="text-xl font-semibold text-gray-800">お問い合わせ</h3>
             <p className="flex items-center"><Phone className="mr-3 h-5 w-5 text-gray-600" /> 070-9168-1540</p>
-            <p className="flex items-center"><Mail className="mr-3 h-5 w-5 text-gray-600" /> info@saira.co.jp</p>
+            <p className="flex items-center"><Mail className="mr-3 h-5 w-5 text-gray-600" /> info@sairainc.com</p>
             <p className="flex items-center"><MapPin className="mr-3 h-5 w-5 text-gray-600" /> 神奈川県相模原市...</p>
           </div>
           <div className="space-y-4">
