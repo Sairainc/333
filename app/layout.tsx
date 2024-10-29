@@ -6,7 +6,7 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Saira株式会社',
+  title: '株式会社Saira',
   description: 'ビジネスの成長を加速するノーコードソリューションと人材戦略',
 }
 
