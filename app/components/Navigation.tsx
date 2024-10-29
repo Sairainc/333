@@ -2,7 +2,8 @@
 
 import React,{ useState } from 'react'
 import { ChevronDown } from 'lucide-react'
-import Link from 'next/link' // Next.jsのLinkコンポーネントをインポート
+import Link from 'next/link'
+import Image from 'next/image'
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -21,7 +22,13 @@ const Navigation = () => {
     <nav className="bg-white shadow-sm sticky top-0 z-50">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <Link href="/" className="text-2xl font-bold text-gray-900">
-          株式会社Saira
+          <Image
+            src="/images/Saira logo high-res.png"
+            alt="株式会社Saira"
+            width={150}
+            height={40}
+            priority
+          />
         </Link>
         <div className="hidden md:flex space-x-8">
           {navItems.map((item) => (

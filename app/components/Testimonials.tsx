@@ -43,21 +43,29 @@ const Testimonials = () => {
     }
   ]
 
-  const clientLogos = [
-    "/images/client-logo1.png",
-    "/images/client-logo2.png",
-    "/images/client-logo3.png",
-    "/images/client-logo4.png",
-    "/images/client-logo5.png",
-    "/images/client-logo6.png",
-    // 必要に応じてさらにロゴを追加
+  const portfolioItems = [
+    {
+      image: "/images/iPhone 15 Pro Max Front.png",
+      title: "旅行計画アプリ",
+      description: "生成AIを活用したチャットボットの開発"
+    },
+    {
+      image: "/images/Macbook Front View Mockup.png",
+      title: "自動車整備工場の予約システム",
+      description: "ノーコードで構築した予約管理システム"
+    },
+    {
+      image: "/images/Macbook Front View Mockup (1).png",
+      title: "シフト表作成システム",
+      description: "バイトのシフト表を自動で作成するシステム"
+    }
   ];
 
   return (
     <section id="お客様の声" className="py-20 bg-gradient-to-br from-blue-50 to-purple-50">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold mb-12 text-center text-gray-900">
-          お客様の声と実績
+          お客様の声と開発実績
         </h2>
         <div className="grid md:grid-cols-3 gap-8 mb-12">
           {testimonials.map((testimonial, index) => (
@@ -68,14 +76,26 @@ const Testimonials = () => {
           ノーコードウェブ開発、人材コンサルティング、SNS運用コンサルなど、
           多岐にわたるサービスで、様々な業界のお客様にご満足いただいています。
         </p>
-        <div className="text-left">
-          <h3 className="text-2xl font-bold mb-8 text-gray-900 pl-32">実績</h3>
-          <div className="overflow-hidden">
-            <div className="flex animate-scroll">
-              {[...clientLogos, ...clientLogos].map((logo, index) => (
-                <Image key={index} src={logo} alt={`導入企業のロゴ${index + 1}`} width={160} height={80} className="mx-8" />
-              ))}
-            </div>
+        <div className="text-center">
+          <h3 className="text-2xl font-bold mb-8 text-gray-900">開発実績</h3>
+          <div className="grid md:grid-cols-3 gap-8">
+            {portfolioItems.map((item, index) => (
+              <div key={index} className="bg-white rounded-lg shadow-lg overflow-hidden">
+                <div className="relative w-full h-64">
+                  <Image 
+                    src={item.image} 
+                    alt={item.title} 
+                    fill
+                    style={{ objectFit: 'contain' }}
+                    className="p-4"
+                  />
+                </div>
+                <div className="p-4">
+                  <h4 className="font-bold text-lg mb-2">{item.title}</h4>
+                  <p className="text-gray-600">{item.description}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

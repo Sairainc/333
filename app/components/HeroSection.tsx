@@ -13,7 +13,7 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-[8rem] md:text-[12rem] lg:text-[20rem] font-bold leading-none bg-clip-text text-transparent bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500"
+          className="text-[8rem] md:text-[12rem] lg:text-[20rem] font-bold leading-none bg-clip-text text-transparent bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 relative transform -skew-y-6"
         >
           Saira
         </motion.h1>
@@ -21,7 +21,7 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.8 }}
-          className="text-[2rem] md:text-[3rem] lg:text-[4rem] font-bold -mt-4 md:-mt-6 lg:-mt-8 mb-8 bg-clip-text text-transparent bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500"
+          className="text-[2rem] md:text-[3rem] lg:text-[4rem] font-bold -mt-4 md:-mt-6 lg:-mt-8 mb-8 bg-clip-text text-transparent bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 relative transform -skew-y-6"
         >
           Webアプリケーション×生成AI
         </motion.div>
