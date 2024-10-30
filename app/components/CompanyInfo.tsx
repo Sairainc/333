@@ -83,7 +83,7 @@ const CompanyInfo = () => {
       </p>
       <p className="text-gray-600 text-lg leading-relaxed">
         <span className="font-semibold text-gray-900 text-xl block mb-2">ビジョン：</span>
-        テクノロジーの民主化を通じて、誰もが自由にアイデアを形にできる世界を創造します。
+        テクノロジーの民主化を通じて、誰もが自由にアイデアを形にできる世界を創造する。
       </p>
     </>
   )
