@@ -79,7 +79,7 @@ const CompanyInfo = () => {
     <>
       <p className="mb-8 text-gray-600 text-lg leading-relaxed">
         <span className="font-semibold text-gray-900 text-xl block mb-2">ミッション：</span>
-        ノーコード技術と人材戦略を融合し、企業のデジタル変革と持続的成長を支援します。
+        ノーコード開発と人材戦略を融合し、企業のデジタル変革と持続的成長を支援する。
       </p>
       <p className="text-gray-600 text-lg leading-relaxed">
         <span className="font-semibold text-gray-900 text-xl block mb-2">ビジョン：</span>
