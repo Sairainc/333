@@ -57,7 +57,7 @@ const CompanyInfo = () => {
 
   const companyDetails = [
     { label: "社名", value: "株式会社Saira" },
-    { label: "設立", value: "2024年10月24日" },
+    { label: "設立", value: "2024年10月17日" },
     { label: "所在地", value: "神奈川県相模原市..." },
     { label: "事業内容", value: "ノーコードウェブアプリ・ウェブサイト開発、人材コンサルティング、SNS運用コンサル" },
   ]
