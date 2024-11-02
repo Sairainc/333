@@ -1,6 +1,15 @@
 "use server";
 import { neon } from "@neondatabase/serverless";
 import { z } from "zod";
+import { IncomingWebhook } from '@slack/webhook';
+
+// バリデーションエラーの型を定義
+interface ValidationErrors {
+  [key: string]: string;
+}
+
+// Slack Webhookのインスタンスを作成
+const slack = new IncomingWebhook('https://hooks.slack.com/services/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');
 
 async function getDatabaseConnection() {
   if (!process.env.DATABASE_URL) {
@@ -12,7 +21,11 @@ async function getDatabaseConnection() {
 const ContactSchema = z.object({
   name: z.string().min(1, "名前は必須です"),
   email: z.string().email("有効なメールアドレスを入力してください"),
-  phone: z.string().min(10, "有効な電話番号を入力してください"),
+  phone: z.string()
+    .regex(
+      /^(0[0-9]{1,4}-[0-9]{1,4}-[0-9]{3,4}|0[0-9]{9,10})$/,
+      "電話番号は「090-1234-5678」または「0312345678」の形式で入力してください"
+    ),
   company: z.string().min(1, "会社名は必須です"),
   service: z.string().min(1, "サービスを選択してください"),
 });
@@ -32,8 +45,16 @@ export async function submitContact(formData: FormData) {
 
     const validatedFields = ContactSchema.safeParse(formDataObj);
     if (!validatedFields.success) {
-      console.error("Validation error:", validatedFields.error);
-      return { error: "入力内容に誤りがあります。" };
+      const validationErrors: ValidationErrors = {};
+      validatedFields.error.issues.forEach((issue) => {
+        if (typeof issue.path[0] === 'string') {
+          validationErrors[issue.path[0]] = issue.message;
+        }
+      });
+      return { 
+        error: "入力内容に誤りがあります。",
+        validationErrors 
+      };
     }
 
     const { name, email, phone, company, service } = validatedFields.data;
@@ -64,6 +85,46 @@ export async function submitContact(formData: FormData) {
       if (!result || result.length === 0) {
         throw new Error("データが正しく保存されませんでした。");
       }
+
+      // Slack通知を送信
+      await slack.send({
+        text: '新しい問い合わせがありました',
+        blocks: [
+          {
+            type: 'header',
+            text: {
+              type: 'plain_text',
+              text: '🎉 新規お問い合わせ',
+              emoji: true
+            }
+          },
+          {
+            type: 'section',
+            fields: [
+              {
+                type: 'mrkdwn',
+                text: `*お名前:*\n${name}`
+              },
+              {
+                type: 'mrkdwn',
+                text: `*会社名:*\n${company}`
+              },
+              {
+                type: 'mrkdwn',
+                text: `*メール:*\n${email}`
+              },
+              {
+                type: 'mrkdwn',
+                text: `*電話番号:*\n${phone}`
+              },
+              {
+                type: 'mrkdwn',
+                text: `*興味のあるサービス:*\n${service}`
+              }
+            ]
+          }
+        ]
+      });
 
       return { success: "お申し込みありがとうございます。\n担当者より連絡させていただきます。" };
     } catch (dbError: any) {
