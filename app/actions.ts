@@ -65,8 +65,17 @@ export async function submitContact(formData: FormData) {
 
     // Slack通知の送信
     try {
-      const webhook = new IncomingWebhook(process.env.SLACK_WEBHOOK_URL || '');
-      await webhook.send({
+      if (!process.env.SLACK_WEBHOOK_URL) {
+        throw new Error("SLACK_WEBHOOK_URL is not defined");
+      }
+      
+      console.log("Attempting to send Slack notification...");
+      console.log("Using webhook URL:", process.env.SLACK_WEBHOOK_URL);
+      
+      const webhook = new IncomingWebhook(process.env.SLACK_WEBHOOK_URL);
+      
+      const message = {
+        text: "新規お問い合わせ", // フォールバックテキスト
         blocks: [
           {
             type: "header",
@@ -102,9 +111,18 @@ export async function submitContact(formData: FormData) {
             ]
           }
         ]
+      };
+
+      console.log("Sending message:", JSON.stringify(message, null, 2));
+      
+      const response = await webhook.send(message);
+      console.log("Slack notification sent successfully:", response);
+    } catch (error: any) {  // 修正: unknown から any に変更
+      console.error("Slack notification failed:", error);
+      console.error("Error details:", {
+        message: error.message,
+        stack: error.stack
       });
-    } catch (slackError) {
-      console.error("Slack notification failed:", slackError);
       // Slack通知の失敗はユーザーには通知しない
     }
 
