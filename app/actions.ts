@@ -1,6 +1,7 @@
 "use server";
 import { neon } from "@neondatabase/serverless";
 import { z } from "zod";
+import { IncomingWebhook } from '@slack/webhook';
 
 async function getDatabaseConnection() {
   if (!process.env.DATABASE_URL) {
@@ -61,6 +62,51 @@ export async function submitContact(formData: FormData) {
     }
 
     const { name, email, phone, company, service } = validatedFields.data;
+
+    // Slack通知の送信
+    try {
+      const webhook = new IncomingWebhook(process.env.SLACK_WEBHOOK_URL || '');
+      await webhook.send({
+        blocks: [
+          {
+            type: "header",
+            text: {
+              type: "plain_text",
+              text: "🎉 新規お問い合わせがありました",
+              emoji: true
+            }
+          },
+          {
+            type: "section",
+            fields: [
+              {
+                type: "mrkdwn",
+                text: `*お名前:*\n${name}`
+              },
+              {
+                type: "mrkdwn",
+                text: `*メール:*\n${email}`
+              },
+              {
+                type: "mrkdwn",
+                text: `*電話番号:*\n${phone}`
+              },
+              {
+                type: "mrkdwn",
+                text: `*会社名:*\n${company}`
+              },
+              {
+                type: "mrkdwn",
+                text: `*サービス:*\n${service}`
+              }
+            ]
+          }
+        ]
+      });
+    } catch (slackError) {
+      console.error("Slack notification failed:", slackError);
+      // Slack通知の失敗はユーザーには通知しない
+    }
 
     try {
       console.log("Checking if table exists...");
