@@ -10,22 +10,36 @@ async function getDatabaseConnection() {
 }
 
 const ContactSchema = z.object({
-  name: z.string().min(1, "名前は必須です"),
-  email: z.string().email("有効なメールアドレスを入力してください"),
-  phone: z.string().min(10, "有効な電話番号を入力してください"),
-  company: z.string().min(1, "会社名は必須です"),
+  name: z.string().min(1, "名前を入力してください"),
+  email: z.string().email("メールアドレスの形式が正しくありません"),
+  phone: z
+    .string()
+    .min(10, "電話番号は10桁以上で入力してください")
+    .regex(/^\d{2,4}-\d{2,4}-\d{4}$/, "電話番号の形式が正しくありません"),
+  company: z.string().min(1, "会社名を入力してください"),
   service: z.string().min(1, "サービスを選択してください"),
 });
 
 export async function submitContact(formData: FormData) {
-
   try {
     const sql = await getDatabaseConnection();
     
+    // 電話番号のフォーマット処理
+    const rawPhone = formData.get("phone")?.toString() || "";
+    const phoneDigits = rawPhone.replace(/[^\d]/g, "");
+    let formattedPhone = phoneDigits;
+    
+    // 電話番号の桁数に応じてフォーマットを変更
+    if (phoneDigits.length === 10) {
+      formattedPhone = phoneDigits.replace(/(\d{2})(\d{4})(\d{4})/, "$1-$2-$3");
+    } else if (phoneDigits.length === 11) {
+      formattedPhone = phoneDigits.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3");
+    }
+
     const formDataObj = {
       name: formData.get("name"),
       email: formData.get("email"),
-      phone: formData.get("phone"),
+      phone: formattedPhone,
       company: formData.get("company"),
       service: formData.get("service"),
     };
@@ -33,10 +47,18 @@ export async function submitContact(formData: FormData) {
 
     const validatedFields = ContactSchema.safeParse(formDataObj);
     if (!validatedFields.success) {
-      console.error("Validation error:", validatedFields.error);
-      return { error: "入力内容に誤りがあります。" };
+      // エラーメッセージを整形して返す
+      const errors: { [key: string]: string } = {};
+      validatedFields.error.errors.forEach((error) => {
+        if (error.path[0]) {
+          errors[error.path[0].toString()] = error.message;
+        }
+      });
+      return { 
+        error: "入力内容に誤りがあります",
+        fieldErrors: errors 
+      };
     }
-
 
     const { name, email, phone, company, service } = validatedFields.data;
 

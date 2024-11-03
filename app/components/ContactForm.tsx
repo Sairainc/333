@@ -14,28 +14,63 @@ const ContactForm = () => {
     service: ''
   })
   const [message, setMessage] = useState("")
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSuccess, setIsSuccess] = useState(false)
+
+  // 電話番号フォーマット関数
+  const formatPhoneNumber = (value: string): string => {
+    const numbers = value.replace(/[^\d]/g, "");
+    if (numbers.length <= 3) {
+      return numbers;
+    } else if (numbers.length <= 7) {
+      return `${numbers.slice(0, 3)}-${numbers.slice(3)}`;
+    } else {
+      return `${numbers.slice(0, 3)}-${numbers.slice(3, 7)}-${numbers.slice(7, 11)}`;
+    }
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: value
-    }))
+    setIsSuccess(false)
+    
+    if (name === 'phone') {
+      setFormData(prevState => ({
+        ...prevState,
+        [name]: formatPhoneNumber(value)
+      }))
+    } else {
+      setFormData(prevState => ({
+        ...prevState,
+        [name]: value
+      }))
+    }
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const formDataToSend = new FormData()
-    Object.entries(formData).forEach(([key, value]) => {
-      formDataToSend.append(key, value)
-    })
+    setIsSubmitting(true)
+    setMessage("")
+    
+    try {
+      const formDataToSend = new FormData()
+      Object.entries(formData).forEach(([key, value]) => {
+        formDataToSend.append(key, value)
+      })
 
-    const result = await submitContact(formDataToSend)
-    if (result.error) {
-      setMessage(result.error)
-    } else if (result.success) {
-      setMessage(result.success)
-      setFormData({ name: '', email: '', phone: '', company: '', service: '' })
+      const result = await submitContact(formDataToSend)
+      if (result.error) {
+        setMessage(result.error)
+        setIsSuccess(false)
+      } else if (result.success) {
+        setIsSuccess(true)
+        setMessage("お申し込みありがとうございます。\n担当者より2営業日以内にご連絡させていただきます。")
+        setFormData({ name: '', email: '', phone: '', company: '', service: '' })
+      }
+    } catch (error) {
+      setMessage("エラーが発生しました。時間をおいて再度お試しください。")
+      setIsSuccess(false)
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
@@ -47,7 +82,9 @@ const ContactForm = () => {
         </h2>
         <form className="max-w-lg mx-auto" onSubmit={handleSubmit}>
           <div className="mb-6">
-            <label htmlFor="name" className="block mb-2 font-semibold text-gray-900">お名前</label>
+            <label htmlFor="name" className="block mb-2 font-semibold text-gray-900">
+              お名前 <span className="text-red-500">*</span>
+            </label>
             <Input 
               type="text" 
               id="name" 
@@ -60,7 +97,9 @@ const ContactForm = () => {
             />
           </div>
           <div className="mb-6">
-            <label htmlFor="email" className="block mb-2 font-semibold text-gray-900">メールアドレス</label>
+            <label htmlFor="email" className="block mb-2 font-semibold text-gray-900">
+              メールアドレス <span className="text-red-500">*</span>
+            </label>
             <Input 
               type="email" 
               id="email" 
@@ -73,7 +112,9 @@ const ContactForm = () => {
             />
           </div>
           <div className="mb-6">
-            <label htmlFor="phone" className="block mb-2 font-semibold text-gray-900">電話番号</label>
+            <label htmlFor="phone" className="block mb-2 font-semibold text-gray-900">
+              電話番号 <span className="text-red-500">*</span>
+            </label>
             <Input 
               type="tel" 
               id="phone" 
@@ -82,11 +123,14 @@ const ContactForm = () => {
               required 
               className="w-full" 
               onChange={handleChange} 
-              value={formData.phone} 
+              value={formData.phone}
+              maxLength={13}
             />
           </div>
           <div className="mb-6">
-            <label htmlFor="company" className="block mb-2 font-semibold text-gray-900">会社名</label>
+            <label htmlFor="company" className="block mb-2 font-semibold text-gray-900">
+              会社名 <span className="text-red-500">*</span>
+            </label>
             <Input 
               type="text" 
               id="company" 
@@ -99,7 +143,9 @@ const ContactForm = () => {
             />
           </div>
           <div className="mb-6">
-            <label htmlFor="service" className="block mb-2 font-semibold text-gray-900">興味のあるサービス</label>
+            <label htmlFor="service" className="block mb-2 font-semibold text-gray-900">
+              興味のあるサービス <span className="text-red-500">*</span>
+            </label>
             <select 
               id="service" 
               name="service" 
@@ -118,10 +164,28 @@ const ContactForm = () => {
           <Button 
             type="submit" 
             className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 transition-all duration-300"
+            disabled={isSubmitting}
           >
-            申し込む
+            {isSubmitting ? (
+              <span className="flex items-center justify-center">
+                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                送信中...
+              </span>
+            ) : "申し込む"}
           </Button>
-          {message && <p className="mt-4 text-center">{message}</p>}
+          {message && (
+            <div className={`mt-4 p-4 rounded ${isSuccess ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'}`}>
+              {message.split('\n').map((line, index) => (
+                <p key={index} className="text-center">{line}</p>
+              ))}
+            </div>
+          )}
+          <p className="mt-4 text-sm text-gray-600 text-center">
+            <span className="text-red-500">*</span> は必須項目です
+          </p>
         </form>
       </div>
     </section>
